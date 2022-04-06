@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-const String bookedProperty = "booked";
-const String availableProperty = "available";
+const String sellProperty = "sell";
+const String rentProperty = "rent";
 
 class PropertyModel {
   String? propertyId;
@@ -43,5 +43,6 @@ class PropertyModel {
     images = documentSnapshot["image"];
     liked = documentSnapshot["liked"];
     propertyStatus = documentSnapshot["property_status"];
+    propertyCategory = documentSnapshot["category"];
   }
 }

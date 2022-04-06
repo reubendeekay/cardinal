@@ -50,10 +50,10 @@ class _FiltersState extends State<Filters> {
                 child: OgTab(
                   items: [
                     OgTabItem(
-                      title: availableProperty,
+                      title: rentProperty,
                     ),
                     OgTabItem(
-                      title: bookedProperty,
+                      title: sellProperty,
                     ),
                   ],
                   onChanged: (int val) {

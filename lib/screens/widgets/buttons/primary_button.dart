@@ -6,7 +6,9 @@ import 'package:real_estate/utils/constants.dart';
 class PrimaryButton extends StatelessWidget {
   final String text;
   final Function() onPressed;
-  const PrimaryButton({Key? key, required this.text, required this.onPressed})
+  final Color? color;
+  const PrimaryButton(
+      {Key? key, this.color, required this.text, required this.onPressed})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class PrimaryButton extends StatelessWidget {
         width: double.infinity,
         height: ScreenUtil().setHeight(50.0),
         decoration: BoxDecoration(
-          color: Constants.primaryColor,
+          color: color ?? Constants.primaryColor,
           borderRadius: BorderRadius.circular(8.0),
           boxShadow: const [
             BoxShadow(

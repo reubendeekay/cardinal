@@ -68,7 +68,9 @@ class PropertyDatabase {
           "address": property.address,
           "price": property.price,
           "cover_image": property.coverImage,
-          "property_status": property.propertyStatus
+          "property_status": property.propertyStatus,
+          "category": property.propertyCategory,
+          "location": property.location,
         },
       );
 
@@ -95,7 +97,7 @@ class PropertyDatabase {
           .doc('propertyListing')
           .collection('properties')
           .doc(propertyId)
-          .update({'tenant_id': tenantId, "property_status": bookedProperty});
+          .update({'tenant_id': tenantId, "property_status": sellProperty});
       Get.snackbar(
         "Success",
         "Property successfully booked",
@@ -119,7 +121,7 @@ class PropertyDatabase {
           .doc('propertyListing')
           .collection('properties')
           .doc(propertyId)
-          .update({'tenant_id': "", "property_status": availableProperty});
+          .update({'tenant_id': "", "property_status": rentProperty});
       Get.snackbar(
         "Success",
         "Property successfully vacated",

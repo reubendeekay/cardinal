@@ -100,15 +100,15 @@ class PropertyCard extends StatelessWidget {
                         height: 45.0,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: property.propertyStatus == availableProperty
+                          color: property.propertyStatus == rentProperty
                               ? Constants.primaryColor
                               : const Color.fromRGBO(255, 136, 0, 1),
                         ),
                         child: Center(
                           child: Text(
-                            property.propertyStatus == availableProperty
-                                ? availableProperty
-                                : bookedProperty,
+                            property.propertyStatus!.toLowerCase() == 'sell'
+                                ? sellProperty
+                                : rentProperty,
                             style: const TextStyle(
                               fontSize: 8.0,
                               color: Colors.white,

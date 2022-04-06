@@ -10,6 +10,7 @@ import 'package:real_estate/screens/map/map_screen.dart';
 import 'package:real_estate/screens/map_overview/map_overview_screen.dart';
 import 'package:real_estate/screens/settings/settings_screen.dart';
 import 'package:real_estate/screens/user_profile.dart';
+import 'package:real_estate/utils/constants.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class BottomBar extends StatefulWidget {
@@ -53,7 +54,7 @@ class _BottomBarState extends State<BottomBar> {
           SalomonBottomBarItem(
             icon: const Icon(Icons.home),
             title: const Text("Home"),
-            selectedColor: Colors.orange,
+            selectedColor: Constants.primaryColor,
             unselectedColor: Colors.grey,
           ),
 
@@ -61,16 +62,16 @@ class _BottomBarState extends State<BottomBar> {
           SalomonBottomBarItem(
             icon: const Icon(Icons.location_on),
             title: const Text("Explore"),
-            selectedColor: Colors.orange,
+            selectedColor: Constants.primaryColor,
             unselectedColor: Colors.grey,
           ),
 
           /// Profile
           SalomonBottomBarItem(
-            icon: const Icon(Icons.person),
+            icon: const Icon(Icons.settings),
             title: const Text("Profile"),
             unselectedColor: Colors.grey,
-            selectedColor: Colors.orange,
+            selectedColor: Constants.primaryColor,
           ),
         ],
       ),

@@ -26,7 +26,7 @@ class _InputWidgetState extends State<InputWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: ScreenUtil().setHeight(widget.height),
+      // height: ScreenUtil().setHeight(widget.height),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8.0),
@@ -41,6 +41,8 @@ class _InputWidgetState extends State<InputWidget> {
             widget.onChanged(val);
           });
         },
+        maxLength: null,
+        maxLines: null,
         obscureText: widget.obscureText,
         decoration: InputDecoration(
           prefixIcon: widget.prefixIcon == null

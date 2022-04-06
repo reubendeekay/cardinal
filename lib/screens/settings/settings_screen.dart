@@ -24,8 +24,7 @@ class SettingsScreen extends StatelessWidget {
           SizedBox(height: MediaQuery.of(context).padding.top + 20),
           const Text(
             'Settings',
-            style: TextStyle(
-                color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 20),
           settingTile(
@@ -36,7 +35,7 @@ class SettingsScreen extends StatelessWidget {
             icon: Icons.person_outline,
           ),
           settingTile(
-            title: 'Saved Game IDs',
+            title: 'Wishlist',
             // onTap: () => Get.to(() => const SavedGameIds()),
             icon: Icons.gamepad_outlined,
           ),
@@ -65,7 +64,7 @@ class SettingsScreen extends StatelessWidget {
             // onTap: () => Get.to(() => MyPdfViewer())
           ),
           settingTile(
-            title: 'Community Guidelines',
+            title: 'Review App',
             icon: Icons.drag_indicator_outlined,
             // onTap: () => Get.to(() => MyPdfViewer())
           ),
@@ -83,9 +82,9 @@ class SettingsScreen extends StatelessWidget {
 
                 final Uri emailLaunchUri = Uri(
                   scheme: 'mailto',
-                  path: 'funchill42@gmail.com',
+                  path: 'husseinny1705@gmail.com ',
                   query: encodeQueryParameters(<String, String>{
-                    'subject': 'FUNCHILL Support Query',
+                    'subject': 'Cardinal Realty Support Query',
                   }),
                 );
                 launch(emailLaunchUri.toString());
@@ -112,7 +111,7 @@ class SettingsScreen extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 8),
       height: 55,
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.blueGrey.withOpacity(0.2),
         borderRadius: BorderRadius.circular(10),
       ),
       width: double.infinity,
@@ -129,7 +128,9 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(width: 10),
               Text(
                 title ?? 'Settings',
-                style: const TextStyle(fontSize: 15, color: Colors.white),
+                style: const TextStyle(
+                  fontSize: 15,
+                ),
               ),
               const Spacer(),
               const Icon(Icons.chevron_right),
