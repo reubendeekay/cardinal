@@ -10,6 +10,7 @@ import 'package:real_estate/screens/map/map_screen.dart';
 import 'package:real_estate/screens/map_overview/map_overview_screen.dart';
 import 'package:real_estate/screens/settings/settings_screen.dart';
 import 'package:real_estate/screens/user_profile.dart';
+import 'package:real_estate/services/user_database.dart';
 import 'package:real_estate/utils/constants.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
@@ -42,6 +43,7 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     // Provider.of<AuthProvider>(context, listen: false)
     //     .getUser(FirebaseAuth.instance.currentUser.uid);
+
     return Scaffold(
       body: selectedTabs[_selectedTab],
       bottomNavigationBar: SalomonBottomBar(

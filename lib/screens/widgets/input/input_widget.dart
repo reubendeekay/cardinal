@@ -41,8 +41,6 @@ class _InputWidgetState extends State<InputWidget> {
             widget.onChanged(val);
           });
         },
-        maxLength: null,
-        maxLines: null,
         obscureText: widget.obscureText,
         decoration: InputDecoration(
           prefixIcon: widget.prefixIcon == null
