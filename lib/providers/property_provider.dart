@@ -23,9 +23,9 @@ class PropertyProvider with ChangeNotifier {
         coverImage: e['cover_image'],
         price: e['price'],
         location: e['location'],
-        images: e['images'],
+        images: e['image'],
         ownerId: e['ownerId'],
-        propertyCategory: e['propertyCategory'],
+        propertyCategory: e['category'],
         description: e['description'],
       ));
     }

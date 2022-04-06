@@ -29,8 +29,6 @@ class _BottomBarState extends State<BottomBar> {
     Future.delayed(Duration.zero).then((_) async {
       await Provider.of<PropertyProvider>(context, listen: false)
           .fetchProperties();
-      await Provider.of<LocationProvider>(context, listen: false)
-          .getCurrentLocation();
     });
   }
 

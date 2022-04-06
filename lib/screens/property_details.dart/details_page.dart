@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:real_estate/models/property.dart';
+import 'package:real_estate/utils/constants.dart';
 
 class DetailsPage extends StatelessWidget {
   final PropertyModel propertyModel;
@@ -62,9 +63,9 @@ class DetailsPage extends StatelessWidget {
                               color: Colors.black.withOpacity(0.5),
                             ),
                       ),
-                      const SizedBox(
-                        height: 32,
-                      ),
+                      // const SizedBox(
+                      //   height: 32,
+                      // ),
                       // SingleChildScrollView(
                       //   scrollDirection: Axis.horizontal,
                       //   child: Row(
@@ -88,10 +89,10 @@ class DetailsPage extends StatelessWidget {
                       //   ),
                       // ),
                       const SizedBox(
-                        height: 32,
+                        height: 15,
                       ),
                       Text(
-                        "Descriptions",
+                        "Description",
                         style: Theme.of(context).textTheme.headline6,
                       ),
                       const SizedBox(
@@ -178,15 +179,25 @@ class DetailsPage extends StatelessWidget {
                   ),
                   Expanded(
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              "To be Implemented",
+                              style: Theme.of(context).textTheme.subtitle2,
+                            ),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      },
                       child: Container(
                         padding: const EdgeInsets.all(12),
                         margin: const EdgeInsets.only(right: 8),
                         decoration: BoxDecoration(
-                          color: Colors.black,
+                          color: Constants.primaryColor,
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: Colors.black.withOpacity(0.3),
+                            color: Constants.primaryColor,
                           ),
                           boxShadow: [
                             BoxShadow(

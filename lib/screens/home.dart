@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 import 'package:real_estate/controllers/property_controller.dart';
 import 'package:real_estate/controllers/user_controller.dart';
 import 'package:real_estate/models/property.dart';
 import 'package:real_estate/models/users.dart';
+import 'package:real_estate/providers/location_provider.dart';
 import 'package:real_estate/screens/filters.dart';
 import 'package:real_estate/screens/search_result.dart';
 import 'package:real_estate/screens/user_profile.dart';
@@ -24,6 +26,15 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String searchTerm = '';
   List<PropertyModel> properties = PropertyController.instance.properties;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(Duration.zero).then((_) async {
+      await Provider.of<LocationProvider>(context, listen: false)
+          .getCurrentLocation();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

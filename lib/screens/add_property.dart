@@ -111,7 +111,7 @@ class _AddPropertyScreenState extends State<AddPropertyScreen> {
               const SizedBox(height: 15.0),
               InputWidget(
                 obscureText: false,
-                hintText: "Buy or Sell?",
+                hintText: "Sell or Rent?",
                 onChanged: (value) {
                   setState(() {
                     status = value;

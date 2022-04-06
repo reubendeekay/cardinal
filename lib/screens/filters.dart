@@ -113,7 +113,7 @@ class _FiltersState extends State<Filters> {
                           },
                         ),
                         Text(
-                          price.toString() + " \$",
+                          'KES ' + price.toString(),
                           style: const TextStyle(
                             color: Constants.blackColor,
                             fontWeight: FontWeight.w600,
