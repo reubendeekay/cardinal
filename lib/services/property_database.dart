@@ -67,10 +67,10 @@ class PropertyDatabase {
           "liked": property.liked,
           "address": property.address,
           "price": property.price,
+          "location": property.location,
           "cover_image": property.coverImage,
           "property_status": property.propertyStatus,
           "category": property.propertyCategory,
-          "location": property.location,
         },
       );
 

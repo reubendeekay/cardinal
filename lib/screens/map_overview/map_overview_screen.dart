@@ -182,6 +182,7 @@ class _MapOverviewScreenState extends State<MapOverviewScreen> {
                   markers: _markers,
                   onMapCreated: _onMapCreated,
                   compassEnabled: true,
+                  
                   myLocationEnabled: true,
                   zoomGesturesEnabled: true,
                   myLocationButtonEnabled: true,

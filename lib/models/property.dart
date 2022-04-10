@@ -44,5 +44,6 @@ class PropertyModel {
     liked = documentSnapshot["liked"];
     propertyStatus = documentSnapshot["property_status"];
     propertyCategory = documentSnapshot["category"];
+    location = documentSnapshot["location"];
   }
 }

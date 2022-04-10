@@ -24,14 +24,21 @@ class _RegisterFormState extends State<RegisterForm> {
       final form = formKey.currentState;
       if (form!.validate()) {
         form.save();
-        await AuthController.instance
-            .createUser(fullName, email, password, phoneNumber);
+        try {
+          await AuthController.instance
+              .createUser(fullName, email, password, phoneNumber);
+        } catch (e) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(e.toString()),
+          ));
+        }
       }
     }
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Form(
+        key: formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -101,8 +108,7 @@ class _RegisterFormState extends State<RegisterForm> {
             PrimaryButton(
               text: "Register",
               onPressed: () async {
-                // AuthController.instance
-                //     .createUser(fullName, email, password, phoneNumber);
+                _register();
               },
             ),
             const SizedBox(height: 20.0),

@@ -1,10 +1,19 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:provider/provider.dart';
+import 'package:real_estate/controllers/cached_image.dart';
 import 'package:real_estate/models/property.dart';
+import 'package:real_estate/models/users.dart';
+import 'package:real_estate/providers/chat_provider.dart';
+import 'package:real_estate/screens/chat/chat_room.dart';
+import 'package:real_estate/screens/property_details.dart/property_location.dart';
 import 'package:real_estate/utils/constants.dart';
 
-class DetailsPage extends StatelessWidget {
+class DetailsPage extends StatefulWidget {
   final PropertyModel propertyModel;
   const DetailsPage({
     Key? key,
@@ -12,7 +21,14 @@ class DetailsPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<DetailsPage> createState() => _DetailsPageState();
+}
+
+class _DetailsPageState extends State<DetailsPage> {
+  bool isLiked = false;
+  @override
   Widget build(BuildContext context) {
+    Provider.of<ChatProvider>(context, listen: false).getChats();
     return Scaffold(
       body: Stack(
         children: [
@@ -21,7 +37,7 @@ class DetailsPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CarouselwithIndicatorDemo(
-                  propertyModel: propertyModel,
+                  propertyModel: widget.propertyModel,
                 ),
                 const SizedBox(
                   height: 12,
@@ -34,7 +50,7 @@ class DetailsPage extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            propertyModel.name!,
+                            widget.propertyModel.name!,
                             style:
                                 Theme.of(context).textTheme.headline6!.copyWith(
                                       fontWeight: FontWeight.bold,
@@ -54,11 +70,9 @@ class DetailsPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 12,
-                      ),
+
                       Text(
-                        propertyModel.address.toString(),
+                        widget.propertyModel.address.toString(),
                         style: Theme.of(context).textTheme.subtitle2!.copyWith(
                               color: Colors.black.withOpacity(0.5),
                             ),
@@ -99,12 +113,26 @@ class DetailsPage extends StatelessWidget {
                         height: 12,
                       ),
                       Text(
-                        propertyModel.description!,
+                        widget.propertyModel.description!,
                         style: Theme.of(context).textTheme.subtitle2!.copyWith(
                               color: Colors.black.withOpacity(0.5),
                               letterSpacing: 1.1,
                               height: 1.4,
                             ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      const Text(
+                        'Location',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      MechanicDetailsLocation(
+                        imageUrl: widget.propertyModel.coverImage,
+                        location: LatLng(
+                          widget.propertyModel.location!.latitude,
+                          widget.propertyModel.location!.longitude,
+                        ),
                       ),
                       const SizedBox(
                         height: 100,
@@ -124,7 +152,41 @@ class DetailsPage extends StatelessWidget {
               child: Row(
                 children: [
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () async {
+                      final users =
+                          Provider.of<ChatProvider>(context, listen: false)
+                              .contactedUsers;
+                      List<String> room = users.map<String>((e) {
+                        return e.chatRoomId!.contains(
+                                FirebaseAuth.instance.currentUser!.uid +
+                                    '_' +
+                                    widget.propertyModel.ownerId!)
+                            ? FirebaseAuth.instance.currentUser!.uid +
+                                '_' +
+                                widget.propertyModel.ownerId!
+                            : widget.propertyModel.ownerId! +
+                                '_' +
+                                FirebaseAuth.instance.currentUser!.uid;
+                      }).toList();
+                      print(room.length);
+                      await FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(widget.propertyModel.ownerId!)
+                          .get()
+                          .then((value) {
+                        Navigator.of(context)
+                            .pushNamed(ChatRoom.routeName, arguments: {
+                          'user': UserModel(
+                            userId: value.id,
+                            fullName: value['name'],
+                            profilePic: value['profilePic'],
+                            lastSeen: value['lastSeen'],
+                            isOnline: value['isOnline'],
+                          ),
+                          'chatRoomId': room.first,
+                        });
+                      });
+                    },
                     child: Container(
                       padding: const EdgeInsets.all(12),
                       margin: const EdgeInsets.only(right: 8),
@@ -151,7 +213,11 @@ class DetailsPage extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        isLiked = !isLiked;
+                      });
+                    },
                     child: Container(
                       padding: const EdgeInsets.all(12),
                       margin: const EdgeInsets.only(right: 8),
@@ -172,8 +238,9 @@ class DetailsPage extends StatelessWidget {
                       ),
                       height: 55,
                       width: 55,
-                      child: const Icon(
-                        LineIcons.heart,
+                      child: Icon(
+                        isLiked ? LineIcons.heartAlt : LineIcons.heart,
+                        color: isLiked ? Colors.red : null,
                       ),
                     ),
                   ),
@@ -341,14 +408,15 @@ class _CarouselwithIndicatorDemoState extends State<CarouselwithIndicatorDemo> {
         CarouselSlider(
           carouselController: _controller,
           items: widget.propertyModel.images!
-              .map((item) => Image.network(
+              .map((item) => cachedImage(
                     item,
                     fit: BoxFit.cover,
                     width: 1000,
                   ))
               .toList(),
           options: CarouselOptions(
-            height: MediaQuery.of(context).size.height / 1.7,
+            aspectRatio: 16 / 9,
+            viewportFraction: 0.9,
             autoPlay: true,
             enlargeCenterPage: false,
             onPageChanged: (index, reason) {

@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:real_estate/bindings/all_bindings.dart';
 import 'package:real_estate/firebase_options.dart';
+import 'package:real_estate/providers/chat_provider.dart';
 import 'package:real_estate/providers/location_provider.dart';
 import 'package:real_estate/providers/property_provider.dart';
 import 'package:real_estate/utils/constants.dart';
@@ -40,6 +41,7 @@ class RealEstateApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => PropertyProvider()),
         ChangeNotifierProvider(create: (_) => LocationProvider()),
+        ChangeNotifierProvider(create: (_) => ChatProvider()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
